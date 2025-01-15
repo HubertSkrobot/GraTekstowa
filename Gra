@@ -61,7 +61,7 @@ def ekran_koncowy(sukces):#Pojawia się zależnie od tego, czy gracz wygrał czy
    |||||    
    |||||""")
 
-    restart = input("Czy chcesz zagrać jeszcze raz?").strip().lower()
+    restart = input("Czy chcesz zagrać jeszcze raz? :\n").strip().lower()
     if restart == "tak":
         gra_tekstowa()
     else:
@@ -69,7 +69,6 @@ def ekran_koncowy(sukces):#Pojawia się zależnie od tego, czy gracz wygrał czy
 
 
 def gra_tekstowa():#Główna część gry
-    wygrana = losowosc()
     odp = zapytaj("Wychodzisz ze swojego kantorka, które jest na parterze. Twój cel znajduje się na 8 piętrze. Czy wybierasz windę? :\n",
                   ["TAK", "NIE"])
 
@@ -81,11 +80,11 @@ def gra_tekstowa():#Główna część gry
             odp = zapytaj("Inni pracownicy podejrzliwie na Ciebie patrzą i pytają w jakim celu udajesz się tak wysoko. \nCzy zmyślasz jakąś nieprawdziwą historię?:\n",
                           ["TAK", "NIE"])
             if odp == "TAK":
-                if wygrana == "tak":
+                if losowosc() == "tak":
                    odp = zapytaj("Masz szczęście. Pracownicy Ci uwierzyli. Dotarłeś na górne piętro. \nWidzisz niedomknięte drzwi do gabinetu. Wchodzisz tam mając nadzieję, że nikt cię nie zauważy? :\n",
                                  ["TAK", "NIE"])
                    if odp == "TAK":
-                       if wygrana == "tak":
+                       if losowosc() == "tak":
                            wejście_gabinet()
                        else:
                            print("Zostałeś przyłapany przez ochroniarza! Trzeba było się rozglądać! ")
@@ -106,7 +105,7 @@ def gra_tekstowa():#Główna część gry
                 odp = zapytaj("Milczenie to dobry wybór. Pracownicy wzięli Cię za wariata i Ci odpuścili. \nDotarłeś do celu. Widzisz niedomknięte drzwi do gabinetu. Wchodzisz tam mając nadzieję, że nikt cię nie zauważy? :\n",
                               ["TAK", "NIE"])
                 if odp == "TAK":
-                    if wygrana == "tak":
+                    if losowosc() == "tak":
                         wejście_gabinet()
                     else:
                         print("Zostałeś przyłapany przez ochroniarza! Trzeba było się rozglądać! ")
@@ -124,7 +123,7 @@ def gra_tekstowa():#Główna część gry
             odp = zapytaj("Wysiadasz na 5 piętrze i dalej idziesz schodami. Dotarłeś na górę. \nWidzisz tam niedomknięte drzwi do gabinetu. Wchodzisz tam mając nadzieję, że nikt cię nie zauważy? :\n",
                           ['TAK', 'NIE'])
             if odp == "TAK":
-                if wygrana == "tak":
+                if losowosc() == "tak":
                     wejście_gabinet()
                 else:
                     print("Zostałeś przyłapany przez ochroniarza! Trzeba było się rozglądać! ")
@@ -149,7 +148,7 @@ def gra_tekstowa():#Główna część gry
                 odp = zapytaj("Dobry wybór. Odzyskałeś siły i jesteś gotowy do działania. Dotarłeś na 8 piętro. \nWidzisz tam niedomknięte drzwi do gabinetu. Wchodzisz tam mając nadzieję, że nikt cię nie zauważy? :\n",
                               ["TAK", "NIE"])
                 if odp == "TAK":
-                    if wygrana == "tak":
+                    if losowosc() == "tak":
                             wejście_gabinet()
                     else:
                             print("Zostałeś przyłapany przez ochroniarza! Trzeba było się rozglądać! ")
@@ -165,11 +164,11 @@ def gra_tekstowa():#Główna część gry
                                 "I po co tyle czekania? Ochrona zorientowała się, że coś knujesz i zostałeś zatrzymany!")
                             ekran_koncowy(False)
             else:
-                if wygrana == "tak":
+                if losowosc() == "tak":
                     odp = zapytaj("Jesteś zmęczony ale masz na tyle siły aby kontynuować misję. Dotarłeś na 8 piętro. \nWidzisz tam niedomknięte drzwi do gabinetu. Wchodzisz tam mając nadzieję, że nikt cię nie zauważy? :\n",
                                   ["TAK", "NIE"])
                     if odp == "TAK":
-                        if wygrana == "tak":
+                        if losowosc() == "tak":
                             wejście_gabinet()
                         else:
                             print("Zostałeś przyłapany przez ochroniarza! Trzeba było się rozglądać! ")
@@ -192,11 +191,11 @@ def gra_tekstowa():#Główna część gry
             odp = zapytaj("Odmawiasz kobiecie i wchodzisz na górę. Ta jednak doniosła na Ciebie wyżej postawionym pracownikom, \nktórzy zmierzają w twoim kierunku. Czy próbujesz przed nimi uciec? :\n",
                           ['TAK', 'NIE'])
             if odp == "TAK":
-                if wygrana == "tak":
+                if losowosc() == "tak":
                     odp = zapytaj("Udało Ci się uciec przed pracownikami! Dotarłeś na 8 piętro. Widzisz tam niedomknięte drzwi do gabinetu. \nWchodzisz tam mając nadzieję, że nikt cię nie zauważy? :\n",
                                   ["TAK", "NIE"])
                     if odp == "TAK":
-                        if wygrana == "tak":
+                        if losowosc() == "tak":
                             wejście_gabinet()
                         else:
                             print("Zostałeś przyłapany przez ochroniarza! Trzeba było się rozglądać! ")
@@ -218,7 +217,7 @@ def gra_tekstowa():#Główna część gry
                 zapytaj("Pracownicy uznali, że skoro nie próbujesz uciekać to nie planujesz niczego złego. \nPomyśleli, że jesteś wariatem i samo pomogli posprzątać kobiecie. Dotarłeś na 8 piętro. \nWidzisz tam niedomknięte drzwi do gabinetu. Wchodzisz tam mając nadzieję, że nikt cię nie zauważy? : \n",
                         ["TAK", "NIE"])
                 if odp == "TAK":
-                    if wygrana == "tak":
+                    if losowosc() == "tak":
                         wejście_gabinet()
                     else:
                         print("Zostałeś przyłapany przez ochroniarza! Trzeba było się rozglądać! ")
@@ -241,7 +240,7 @@ def wejście_gabinet():#drugą część gry zapisałem tutaj. Nie muszę dzięki
                 if odp == "TAK":
                     print("Pod dywanem odkryłeś sejf! Aby go otworzyć musisz wpisać poprawne hasło!")
                     if minigra_sejf():
-                        print("UDAŁO CI SIĘ ODGADNĄĆ HASAŁO! Zgarnąłeś $20000! Wróciłeś niezauważony do kantorka.")
+                        print("UDAŁO CI SIĘ ODGADNĄĆ HASŁO! Zgarnąłeś $20000! Wróciłeś niezauważony do kantorka.")
                         ekran_koncowy(True)
                     else:
                         print("Wykorzystano wszystkie próby. Sejf pozostaje zamknięty, a dodatkowo włącza się alarm w całym budynku.")
@@ -252,7 +251,7 @@ def wejście_gabinet():#drugą część gry zapisałem tutaj. Nie muszę dzięki
             else:
                 print("Pod dywanem odkryłeś sejf! Aby go otworzyć musisz wpisać poprawne hasło!")
                 if minigra_sejf():
-                    print("UDAŁO CI SIĘ ODGADNĄĆ HASAŁO! Zgarnąłeś $20000! Wróciłeś niezauważony do kantorka.")
+                    print("UDAŁO CI SIĘ ODGADNĄĆ HASŁO! Zgarnąłeś $20000! Wróciłeś niezauważony do kantorka.")
                     ekran_koncowy(True)
                 else:
                     print("Wykorzystano wszystkie próby. Sejf pozostaje zamknięty, a dodatkowo włącza się alarm w całym budynku.")
