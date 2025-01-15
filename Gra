@@ -1,0 +1,262 @@
+import random
+
+print(r"""
+      ////^\\\\
+      | ^   ^ |
+     @ (o) (o) @
+      |   <   |
+      |  ___  |
+       \_____/
+     ____|  |____
+    /    \__/    \
+   /              \
+  /\_/|        |\_/\
+ / /  |        |  \ \
+( <   |        |   > )
+ \ \  |        |  / /
+  \ \ |________| / /""")
+print("Witaj! Jesteś sprzątaczem w siedzibie jednej z największych korporacji na świecie. \nBrakuje ci pieniędzy "
+      "na życie, więc pewnego dnia postanawiasz okraść swojego szefa. \nPostaraj się bezpiecznie dostać "
+      "do jego gabinetu.")
+print("Na pytania odpowiedz wpisując Tak lub Nie. Powodzenia!")
+def zapytaj(pytanie, odpowiedz):#główna funkcja używana do zadawania pytań graczowi i umożliwiająca mu odpowiedzi
+    while True:
+        odp = input(pytanie).strip().upper()
+        if odp in odpowiedz:
+            return odp
+        else:
+            print("Nieprawidłowa odpowiedź. Wpisz TAK lub NIE.")
+
+def losowosc():#Funkcja, która losowo wybiera, czy gracz osiągnie sukces, czy porażkę
+    return random.choice(["tak", "tak", "nie"])
+
+def minigra_sejf():#Mini gra, która odpala się pod koniec w kilku scenariuszach
+    haslo = "zegar"
+    proby = 1
+    podpowiedz = "Nie mam nóg, a chodzę. Nie mam rąk, a biję."
+    print("Podaj poprawne hasło w celu otworzenia sejfu. Masz 5 prób")
+    while proby <= 5:
+        odpowiedz = input(f"Próba {proby}: \n Wpisz swoje hasło:").strip().lower()
+        if odpowiedz == haslo:
+            return True
+        else:
+            print(f"Podpowiedź: {podpowiedz}")
+            proby += 1
+    return False
+
+def ekran_koncowy(sukces):#Pojawia się zależnie od tego, czy gracz wygrał czy przegrał
+    if sukces:
+        print(r"""Gratulacje! To koniec gry. Udało Ci się okraść szefa i zostać niezauważonym!
+        
+  /\_/\
+ ( o.o )
+  > ^ <
+""")
+    else:
+        print(r"""Niestety, nie udalo Ci się okraść szefa i zostałeś przyłapany.
+   _____
+  /     \
+ | () () |
+  \  ^  /
+   |||||    
+   |||||""")
+
+    restart = input("Czy chcesz zagrać jeszcze raz?").strip().lower()
+    if restart == "tak":
+        gra_tekstowa()
+    else:
+        print("Dziękuję za grę! Do zobaczenia!")
+
+
+def gra_tekstowa():#Główna część gry
+    wygrana = losowosc()
+    odp = zapytaj("Wychodzisz ze swojego kantorka, które jest na parterze. Twój cel znajduje się na 8 piętrze. Czy wybierasz windę? :\n",
+                  ["TAK", "NIE"])
+
+    if odp == "TAK":
+        odp = zapytaj("W windzie jest dosyć tłoczno. Czy zostajesz w windzie aż do 8 piętra? :\n",
+                      ["TAK", "NIE"])
+
+        if odp == "TAK":
+            odp = zapytaj("Inni pracownicy podejrzliwie na Ciebie patrzą i pytają w jakim celu udajesz się tak wysoko. \nCzy zmyślasz jakąś nieprawdziwą historię?:\n",
+                          ["TAK", "NIE"])
+            if odp == "TAK":
+                if wygrana == "tak":
+                   odp = zapytaj("Masz szczęście. Pracownicy Ci uwierzyli. Dotarłeś na górne piętro. \nWidzisz niedomknięte drzwi do gabinetu. Wchodzisz tam mając nadzieję, że nikt cię nie zauważy? :\n",
+                                 ["TAK", "NIE"])
+                   if odp == "TAK":
+                       if wygrana == "tak":
+                           wejście_gabinet()
+                       else:
+                           print("Zostałeś przyłapany przez ochroniarza! Trzeba było się rozglądać! ")
+                           ekran_koncowy(False)
+                   else:
+                       odp = zapytaj("Postanawiasz poczekać kilka minut i obserwować, czy nikt cię nie zauważy. \nKorytarz wydaje się bezpieczny. Wchodzisz? :\n",
+                                     ["TAK", "NIE"])
+                       if odp == "TAK":
+                           wejście_gabinet()
+                       else:
+                           print("I po co tyle czekania? Ochrona zorientowała się, że coś knujesz i zostałeś zatrzymany!")
+                           ekran_koncowy(False)
+
+                else:
+                    print("Nikt Ci nie uwierzył. Pracownicy zgłaszają Cię do ochrony.")
+                    ekran_koncowy(False)
+            else:
+                odp = zapytaj("Milczenie to dobry wybór. Pracownicy wzięli Cię za wariata i Ci odpuścili. \nDotarłeś do celu. Widzisz niedomknięte drzwi do gabinetu. Wchodzisz tam mając nadzieję, że nikt cię nie zauważy? :\n",
+                              ["TAK", "NIE"])
+                if odp == "TAK":
+                    if wygrana == "tak":
+                        wejście_gabinet()
+                    else:
+                        print("Zostałeś przyłapany przez ochroniarza! Trzeba było się rozglądać! ")
+                        ekran_koncowy(False)
+                else:
+                    odp = zapytaj("Postanawiasz poczekać kilka minut i obserwować, czy nikt cię nie zauważy. \nKorytarz wydaje się bezpieczny. Wchodzisz? :\n",
+                                  ["TAK", "NIE"])
+                    if odp == "TAK":
+                        wejście_gabinet()
+                    else:
+                        print("I po co tyle czekania? Ochrona zorientowała się, że coś knujesz i zostałeś zatrzymany!")
+                        ekran_koncowy(False)
+
+        else:
+            odp = zapytaj("Wysiadasz na 5 piętrze i dalej idziesz schodami. Dotarłeś na górę. \nWidzisz tam niedomknięte drzwi do gabinetu. Wchodzisz tam mając nadzieję, że nikt cię nie zauważy? :\n",
+                          ['TAK', 'NIE'])
+            if odp == "TAK":
+                if wygrana == "tak":
+                    wejście_gabinet()
+                else:
+                    print("Zostałeś przyłapany przez ochroniarza! Trzeba było się rozglądać! ")
+                    ekran_koncowy(False)
+            else:
+                odp = zapytaj("Postanawiasz poczekać kilka minut i obserwować, czy nikt cię nie zauważy. \nKorytarz wydaje się bezpieczny. Wchodzisz? :\n",
+                              ["TAK", "NIE"])
+                if odp == "TAK":
+                    wejście_gabinet()
+                else:
+                    print("I po co tyle czekania? Ochrona zorientowała się, że coś knujesz i zostałeś zatrzymany!")
+                    ekran_koncowy(False)
+
+
+    else:
+        odp = zapytaj("Wybrałeś schody. Podczas wchodzenia na górę zaczepiła cię kobieta i poprosiła o pomoc w \nposprzątaniu rozlanego mleka. Pomagasz jej? :\n",
+                      ["TAK", "NIE"])
+        if odp == "TAK":
+            odp = zapytaj("Wracasz do kantorka po mop i pomagasz sprzątać kobiecie. Następnie wchodzisz na 8 piętro. \nJesteś jednak bardzo zmęczony. Czy chcesz usiąść, aby trochę odpocząć? :\n",
+                          ["TAK", "NIE"])
+            if odp == "TAK":
+                odp = zapytaj("Dobry wybór. Odzyskałeś siły i jesteś gotowy do działania. Dotarłeś na 8 piętro. \nWidzisz tam niedomknięte drzwi do gabinetu. Wchodzisz tam mając nadzieję, że nikt cię nie zauważy? :\n",
+                              ["TAK", "NIE"])
+                if odp == "TAK":
+                    if wygrana == "tak":
+                            wejście_gabinet()
+                    else:
+                            print("Zostałeś przyłapany przez ochroniarza! Trzeba było się rozglądać! ")
+                            ekran_koncowy(False)
+                else:
+                    odp = zapytaj(
+                            "Postanawiasz poczekać kilka minut i obserwować, czy nikt cię nie zauważy. \nKorytarz wydaje się bezpieczny. Wchodzisz? :\n",
+                            ["TAK", "NIE"])
+                    if odp == "TAK":
+                            wejście_gabinet()
+                    else:
+                            print(
+                                "I po co tyle czekania? Ochrona zorientowała się, że coś knujesz i zostałeś zatrzymany!")
+                            ekran_koncowy(False)
+            else:
+                if wygrana == "tak":
+                    odp = zapytaj("Jesteś zmęczony ale masz na tyle siły aby kontynuować misję. Dotarłeś na 8 piętro. \nWidzisz tam niedomknięte drzwi do gabinetu. Wchodzisz tam mając nadzieję, że nikt cię nie zauważy? :\n",
+                                  ["TAK", "NIE"])
+                    if odp == "TAK":
+                        if wygrana == "tak":
+                            wejście_gabinet()
+                        else:
+                            print("Zostałeś przyłapany przez ochroniarza! Trzeba było się rozglądać! ")
+                            ekran_koncowy(False)
+                    else:
+                        odp = zapytaj("Postanawiasz poczekać kilka minut i obserwować, czy nikt cię nie zauważy. \nKorytarz wydaje się bezpieczny. Wchodzisz? :\n",
+                                      ["TAK", "NIE"])
+                        if odp == "TAK":
+                            wejście_gabinet()
+                        else:
+                            print(
+                            "I po co tyle czekania? Ochrona zorientowała się, że coś knujesz i zostałeś zatrzymany!")
+                    ekran_koncowy(False)
+                else:
+                    print("Masz za mało siły, żeby iść dalej. Zemdlałeś ze zmęczenia i zostałeś przetransportowany do szpitala. ")
+                    ekran_koncowy(False)
+
+
+        else:
+            odp = zapytaj("Odmawiasz kobiecie i wchodzisz na górę. Ta jednak doniosła na Ciebie wyżej postawionym pracownikom, \nktórzy zmierzają w twoim kierunku. Czy próbujesz przed nimi uciec? :\n",
+                          ['TAK', 'NIE'])
+            if odp == "TAK":
+                if wygrana == "tak":
+                    odp = zapytaj("Udało Ci się uciec przed pracownikami! Dotarłeś na 8 piętro. Widzisz tam niedomknięte drzwi do gabinetu. \nWchodzisz tam mając nadzieję, że nikt cię nie zauważy? :\n",
+                                  ["TAK", "NIE"])
+                    if odp == "TAK":
+                        if wygrana == "tak":
+                            wejście_gabinet()
+                        else:
+                            print("Zostałeś przyłapany przez ochroniarza! Trzeba było się rozglądać! ")
+                            ekran_koncowy(False)
+                    else:
+                        odp = zapytaj("Postanawiasz poczekać kilka minut i obserwować, czy nikt cię nie zauważy. \nKorytarz wydaje się bezpieczny. Wchodzisz? : \n",
+                                      ["TAK", "NIE"])
+                        if odp == "TAK":
+                            wejście_gabinet()
+                        else:
+                            print(
+                            "I po co tyle czekania? Ochrona zorientowała się, że coś knujesz i zostałeś zatrzymany!")
+                    ekran_koncowy(False)
+
+                else:
+                    print("Niestety nie udało Ci się uciec. Zostałeś złapany i przekazany ochronie.")
+                    ekran_koncowy(False)
+            else:
+                zapytaj("Pracownicy uznali, że skoro nie próbujesz uciekać to nie planujesz niczego złego. \nPomyśleli, że jesteś wariatem i samo pomogli posprzątać kobiecie. Dotarłeś na 8 piętro. \nWidzisz tam niedomknięte drzwi do gabinetu. Wchodzisz tam mając nadzieję, że nikt cię nie zauważy? : \n",
+                        ["TAK", "NIE"])
+                if odp == "TAK":
+                    if wygrana == "tak":
+                        wejście_gabinet()
+                    else:
+                        print("Zostałeś przyłapany przez ochroniarza! Trzeba było się rozglądać! ")
+                        ekran_koncowy(False)
+                else:
+                    odp = zapytaj("Postanawiasz poczekać kilka minut i obserwować, czy nikt cię nie zauważy. \nKorytarz wydaje się bezpieczny. Wchodzisz? : \n",
+                                  ["TAK", "NIE"])
+                    if odp == "TAK":
+                        wejście_gabinet()
+                    else:
+                        print("I po co tyle czekania? Ochrona zorientowała się, że coś knujesz i zostałeś zatrzymany!")
+                        ekran_koncowy(False)
+
+def wejście_gabinet():#drugą część gry zapisałem tutaj. Nie muszę dzięki temu pisać tej części gry kilkukrotnie, co znacznie skraca kod.
+            odp = zapytaj("Brawo! Dostaeś się do gabinetu!. Teraz wystarczy tylko znaleźć jakieś pieniądze. \nCzy zaczynasz poszukiwania od biurka szefa?: \n",
+                          ["TAK", "NIE"])
+            if odp == "TAK":
+                odp = zapytaj("Na biurku znalazłeś $3481! Możesz już wyjść z gabinetu i bezpiecznie wrócić do kantorka. \nCzy zaryzykujesz i poszukasz większej ilości gotówki? : \n",
+                              ["TAK", "NIE"])
+                if odp == "TAK":
+                    print("Pod dywanem odkryłeś sejf! Aby go otworzyć musisz wpisać poprawne hasło!")
+                    if minigra_sejf():
+                        print("UDAŁO CI SIĘ ODGADNĄĆ HASAŁO! Zgarnąłeś $20000! Wróciłeś niezauważony do kantorka.")
+                        ekran_koncowy(True)
+                    else:
+                        print("Wykorzystano wszystkie próby. Sejf pozostaje zamknięty, a dodatkowo włącza się alarm w całym budynku.")
+                        ekran_koncowy(False)
+                else:
+                    print("Bezpiecznie wracasz do siebie. Nie ukradłeś tyle ile chciałeś, ale przynajmniej jesteś bezpieczny")
+                    ekran_koncowy(True)
+            else:
+                print("Pod dywanem odkryłeś sejf! Aby go otworzyć musisz wpisać poprawne hasło!")
+                if minigra_sejf():
+                    print("UDAŁO CI SIĘ ODGADNĄĆ HASAŁO! Zgarnąłeś $20000! Wróciłeś niezauważony do kantorka.")
+                    ekran_koncowy(True)
+                else:
+                    print("Wykorzystano wszystkie próby. Sejf pozostaje zamknięty, a dodatkowo włącza się alarm w całym budynku.")
+                    ekran_koncowy(False)
+
+
+gra_tekstowa()
